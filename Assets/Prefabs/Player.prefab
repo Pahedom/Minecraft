@@ -1674,7 +1674,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fPPCamera: {fileID: 9163090659136752840}
   movement: {fileID: 9163090659495262890}
-  blockInteractions: {fileID: 0}
+  blockInteractions: {fileID: 9163090659495262883}
   quickSlotBar: {fileID: 0}
 --- !u!1 &9163090659549378682
 GameObject:
