@@ -15,7 +15,7 @@ public class QuickSlotBar : Debuggable
 
     private int _selectedSlot;
 
-    void Start()
+    private void Start()
     {
         _player = FindObjectOfType<BlockInteractions>();
 
@@ -23,7 +23,7 @@ public class QuickSlotBar : Debuggable
         UpdateItemsDisplay();
     }
 
-    void OnValidate()
+    private void OnValidate()
     {
         if (slots.Length != _numberOfSlots)
         {
@@ -41,7 +41,7 @@ public class QuickSlotBar : Debuggable
     {
         if (!slot.IsBetween(0, _numberOfSlots - 1))
         {
-            DebugLog("Couldn't select slot: out of range");
+            DebugError("Couldn't select slot: out of range");
             return;
         }
 
@@ -50,15 +50,23 @@ public class QuickSlotBar : Debuggable
         _player.blockToCreate = items[slot];
     }
 
-    public void AddSelectedSlot(int value)
+    public void SelectNext()
     {
-        int newSlot = _selectedSlot + value;
+        int newSlot = _selectedSlot + 1;
 
         if (newSlot >= _numberOfSlots)
         {
             newSlot = 0;
         }
-        else if (newSlot < 0)
+
+        SetSelectSlot(newSlot);
+    }
+
+    public void SelectPrevious()
+    {
+        int newSlot = _selectedSlot - 1;
+
+        if (newSlot < 0)
         {
             newSlot = _numberOfSlots - 1;
         }

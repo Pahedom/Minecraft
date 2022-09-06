@@ -82,6 +82,15 @@ public class PlayerInput : MonoBehaviour
 
     private void SelectQuickSlot()
     {
-        quickSlotBar.AddSelectedSlot((int)-Input.GetAxisRaw("Mouse ScrollWheel"));
+        float scrollWheel = Input.GetAxisRaw("Mouse ScrollWheel");
+
+        if (scrollWheel < 0)
+        {
+            quickSlotBar.SelectNext();
+        }
+        else if (scrollWheel > 0)
+        {
+            quickSlotBar.SelectPrevious();
+        }
     }
 }
