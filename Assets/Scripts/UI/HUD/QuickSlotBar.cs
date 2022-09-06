@@ -4,82 +4,41 @@ using UnityEngine.UI;
 
 public class QuickSlotBar : Debuggable
 {
-    private const int _numberOfSlots = 9;
-
-    public Image[] slots = new Image[_numberOfSlots];
+    public Image[] slots = new Image[QuickSlots.numberOfSlots];
     public Transform slotIndicator;
 
-    public Block[] items = new Block[_numberOfSlots];
+    private QuickSlots _player;
 
-    private BlockInteractions _player;
-
-    private int _selectedSlot;
-
-    private void Start()
+    private void Awake()
     {
-        _player = FindObjectOfType<BlockInteractions>();
+        _player = FindObjectOfType<QuickSlots>();
 
-        SetSelectSlot(0);
+        _player.OnSlotSelected += SelectSlot;
+        _player.OnItemChanged += UpdateItemDisplay;
+
         UpdateItemsDisplay();
     }
 
     private void OnValidate()
     {
-        if (slots.Length != _numberOfSlots)
+        if (slots.Length != QuickSlots.numberOfSlots)
         {
             Debug.LogWarning("You cannot change the length of this array!");
-            Array.Resize(ref slots, _numberOfSlots);
-        }
-        if (items.Length != _numberOfSlots)
-        {
-            Debug.LogWarning("You cannot change the length of this array!");
-            Array.Resize(ref items, _numberOfSlots);
+            Array.Resize(ref slots, QuickSlots.numberOfSlots);
         }
     }
 
-    public void SetSelectSlot(int slot)
+    public void SelectSlot(int slot)
     {
-        if (!slot.IsBetween(0, _numberOfSlots - 1))
-        {
-            DebugError("Couldn't select slot: out of range");
-            return;
-        }
-
         slotIndicator.position = slots[slot].transform.position;
-        _selectedSlot = slot;
-        _player.blockToCreate = items[slot];
-    }
-
-    public void SelectNext()
-    {
-        int newSlot = _selectedSlot + 1;
-
-        if (newSlot >= _numberOfSlots)
-        {
-            newSlot = 0;
-        }
-
-        SetSelectSlot(newSlot);
-    }
-
-    public void SelectPrevious()
-    {
-        int newSlot = _selectedSlot - 1;
-
-        if (newSlot < 0)
-        {
-            newSlot = _numberOfSlots - 1;
-        }
-
-        SetSelectSlot(newSlot);
     }
 
     private void UpdateItemDisplay(int slot)
     {
-        if (items[slot] != null)
+        if (_player.items[slot] != null)
         {
             slots[slot].enabled = true;
-            slots[slot].sprite = items[slot].icon;
+            slots[slot].sprite = _player.items[slot].icon;
             slots[slot].SetNativeSize();
         }
         else
@@ -91,7 +50,7 @@ public class QuickSlotBar : Debuggable
 
     private void UpdateItemsDisplay()
     {
-        for (int i = 0; i < _numberOfSlots; i++)
+        for (int i = 0; i < QuickSlots.numberOfSlots; i++)
         {
             UpdateItemDisplay(i);
         }

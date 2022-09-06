@@ -5,7 +5,7 @@ public class PlayerInput : MonoBehaviour
     public FPPCamera fPPCamera;
     public CharacterMovement movement;
     public BlockInteractions blockInteractions;
-    public QuickSlotBar quickSlotBar;
+    public QuickSlots quickSlots;
 
     private void Update()
     {
@@ -86,11 +86,11 @@ public class PlayerInput : MonoBehaviour
 
         if (scrollWheel < 0)
         {
-            quickSlotBar.SelectNext();
+            quickSlots.SelectNext();
         }
         else if (scrollWheel > 0)
         {
-            quickSlotBar.SelectPrevious();
+            quickSlots.SelectPrevious();
         }
     }
 }
