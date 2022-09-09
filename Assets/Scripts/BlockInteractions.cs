@@ -4,6 +4,8 @@ public class BlockInteractions : Debuggable
 {
     public Camera playerCamera;
 
+    public float maxDistance = 5f;
+
     public Block blockToCreate;
     public Transform blocksParent;
 
@@ -39,6 +41,13 @@ public class BlockInteractions : Debuggable
             return;
         }
 
+        if (Vector3.Distance(target.transform.position, transform.position) > maxDistance)
+        {
+            DebugLog("Couldn't select " + target.displayName + ": object is too far");
+            Deselect(_currentSelected);
+            return;
+        }
+
         SetSelectedFace(hit);
 
         if (target == _currentSelected)
@@ -49,6 +58,7 @@ public class BlockInteractions : Debuggable
 
         Deselect(_currentSelected);
         Select(target);
+        DebugLog("Selected: " + target.displayName);
     }
 
     private void SetSelectedFace(RaycastHit hit)

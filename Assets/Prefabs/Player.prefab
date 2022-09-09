@@ -1643,7 +1643,7 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.6, y: 1.8, z: 0.6}
+  m_Size: {x: 0.625, y: 1.8, z: 0.625}
   m_Center: {x: 0, y: 0.9, z: 0}
 --- !u!114 &9163090659495262890
 MonoBehaviour:
@@ -1681,7 +1681,7 @@ MonoBehaviour:
   layerMask:
     serializedVersion: 2
     m_Bits: 64
-  checkBoxExtents: {x: 0.299, y: 0.1, z: 0.299}
+  checkBoxExtents: {x: 0.3124, y: 0.1, z: 0.3124}
   groundedVelocity: 0
 --- !u!114 &9163090659495262882
 MonoBehaviour:

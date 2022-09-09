@@ -44,7 +44,9 @@ public static class ExtensionMethods
     }
     public static void Round(ref this Vector3 obj)
     {
-        obj.Round(0);
+        obj.x = MathF.Round(obj.x);
+        obj.y = MathF.Round(obj.y);
+        obj.z = MathF.Round(obj.z);
     }
 
     // GameObject
