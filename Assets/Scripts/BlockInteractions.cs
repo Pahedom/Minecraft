@@ -27,14 +27,14 @@ public class BlockInteractions : Debuggable
         }
         else
         {
-            DebugLog("Couldn't select: object is null");
+            DebugLog("Couldn't select: nothing to select");
             Deselect(_currentSelected);
             return;
         }
 
         if (target == null)
         {
-            DebugLog("Couldn't select: object doesn't have a Block component");
+            DebugLog("Couldn't select: object isn't a block");
             Deselect(_currentSelected);
             return;
         }
@@ -43,13 +43,12 @@ public class BlockInteractions : Debuggable
 
         if (target == _currentSelected)
         {
-            DebugLog("Couldn't select: object is already selected");
+            DebugLog("Couldn't select " + target.displayName + ": object is already selected");
             return;
         }
 
         Deselect(_currentSelected);
         Select(target);
-        DebugLog("Selected: " + target.name);
     }
 
     private void SetSelectedFace(RaycastHit hit)
@@ -120,7 +119,7 @@ public class BlockInteractions : Debuggable
             return;
         }
 
-        DebugLog("Destroyed: " + _currentSelected.name);
+        DebugLog("Destroyed: " + _currentSelected.displayName);
         Destroy(_currentSelected.gameObject);
         _currentSelected = null;
     }
@@ -139,14 +138,17 @@ public class BlockInteractions : Debuggable
         }
 
         Vector3 newPosition = _currentSelected.transform.position + _selectedFace;
+        newPosition.Round(1);
 
-        if (Physics.CheckBox(newPosition, Vector3.one * 0.4999f))
+        if (Physics.CheckBox(newPosition, Vector3.one * 0.499f))
         {
             DebugLog("Couldn't create: obstructed");
             return;
         }
 
-        Block newBlock = Instantiate(blockToCreate, newPosition, Quaternion.identity, blocksParent);
+        Block newBlock = Instantiate(blockToCreate, blocksParent);
+        newBlock.player = transform;
+        newBlock.Place(newPosition);
         DebugLog("Created: " + newBlock.name);
     }
 }

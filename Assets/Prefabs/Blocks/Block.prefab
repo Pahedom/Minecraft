@@ -297,7 +297,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 90705d8f595fb794194859f769e311cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _debugMode: 0
+  displayName: Block
+  icon: {fileID: 0}
   selectionMarker: {fileID: 2800529064028903182}
+  placementRotation: 0
 --- !u!1 &5043853300268322373
 GameObject:
   m_ObjectHideFlags: 0

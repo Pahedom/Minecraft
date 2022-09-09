@@ -43,5 +43,13 @@ PrefabInstance:
       propertyPath: icon
       value: 
       objectReference: {fileID: 21300000, guid: d528e7be6d17e1a4e8b8faf00bc6c1d8, type: 3}
+    - target: {fileID: 8758554265506185412, guid: 17c0906b2502a834bbed8a8e75d8b6f3, type: 3}
+      propertyPath: displayName
+      value: Grass Block
+      objectReference: {fileID: 0}
+    - target: {fileID: 8758554265506185412, guid: 17c0906b2502a834bbed8a8e75d8b6f3, type: 3}
+      propertyPath: placementRotation
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 17c0906b2502a834bbed8a8e75d8b6f3, type: 3}
