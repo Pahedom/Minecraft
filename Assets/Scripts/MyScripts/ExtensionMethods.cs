@@ -48,6 +48,16 @@ public static class ExtensionMethods
         obj.y = MathF.Round(obj.y);
         obj.z = MathF.Round(obj.z);
     }
+    public static float DistanceTo(this Vector3 obj, Vector3 other)
+    {
+        return Vector3.Distance(obj, other);
+    }
+
+    // Transform
+    public static float DistanceTo(this Transform obj, Transform other)
+    {
+        return Vector3.Distance(obj.position, other.position);
+    }
 
     // GameObject
     public static bool IsInLayerMask(this GameObject obj, LayerMask layerMask)

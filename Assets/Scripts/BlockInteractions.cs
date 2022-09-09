@@ -7,7 +7,8 @@ public class BlockInteractions : Debuggable
     public float maxDistance = 5f;
 
     public Block blockToCreate;
-    public Transform blocksParent;
+
+    public BlockPool pool;
 
     private Block _currentSelected = null;
     private Vector3 _selectedFace = new Vector3();
@@ -40,8 +41,8 @@ public class BlockInteractions : Debuggable
             Deselect(_currentSelected);
             return;
         }
-
-        if (Vector3.Distance(target.transform.position, transform.position) > maxDistance)
+        
+        if (transform.DistanceTo(target.transform) > maxDistance)
         {
             DebugLog("Couldn't select " + target.displayName + ": object is too far");
             Deselect(_currentSelected);
@@ -129,8 +130,8 @@ public class BlockInteractions : Debuggable
             return;
         }
 
+        pool.Dispawn(_currentSelected);
         DebugLog("Destroyed: " + _currentSelected.displayName);
-        Destroy(_currentSelected.gameObject);
         _currentSelected = null;
     }
 
@@ -156,7 +157,7 @@ public class BlockInteractions : Debuggable
             return;
         }
 
-        Block newBlock = Instantiate(blockToCreate, blocksParent);
+        Block newBlock = pool.Spawn(blockToCreate);
         newBlock.player = transform;
         newBlock.Place(newPosition);
         DebugLog("Created: " + newBlock.name);
