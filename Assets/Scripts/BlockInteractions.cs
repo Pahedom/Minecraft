@@ -10,8 +10,8 @@ public class BlockInteractions : Debuggable
 
     public BlockPool pool;
 
-    private Block _currentSelected = null;
-    private Vector3 _selectedFace = new Vector3();
+    private Block _selectedBlock = null;
+    private Vector3 _selectedFace = Vector3.zero;
 
     private void Update()
     {
@@ -31,33 +31,36 @@ public class BlockInteractions : Debuggable
         else
         {
             DebugLog("Couldn't select: nothing to select");
-            Deselect(_currentSelected);
+            _selectedFace = Vector3.zero;
+            Deselect(_selectedBlock);
             return;
         }
 
         if (target == null)
         {
             DebugLog("Couldn't select: object isn't a block");
-            Deselect(_currentSelected);
+            _selectedFace = Vector3.zero;
+            Deselect(_selectedBlock);
             return;
         }
         
-        if (transform.DistanceTo(target.transform) > maxDistance)
+        if (transform.DistanceTo(hit.transform) > maxDistance)
         {
             DebugLog("Couldn't select " + target.displayName + ": object is too far");
-            Deselect(_currentSelected);
+            _selectedFace = Vector3.zero;
+            Deselect(_selectedBlock);
             return;
         }
 
         SetSelectedFace(hit);
 
-        if (target == _currentSelected)
+        if (target == _selectedBlock)
         {
             DebugLog("Couldn't select " + target.displayName + ": object is already selected");
             return;
         }
 
-        Deselect(_currentSelected);
+        Deselect(_selectedBlock);
         Select(target);
         DebugLog("Selected: " + target.displayName);
     }
@@ -93,7 +96,7 @@ public class BlockInteractions : Debuggable
         }
         else
         {
-            DebugLog("Couldn't select face");
+            DebugError("Couldn't select face");
             _selectedFace = Vector3.zero;
         }
     }
@@ -107,7 +110,7 @@ public class BlockInteractions : Debuggable
 
         block.SetSelected(true);
 
-        _currentSelected = block;
+        _selectedBlock = block;
     }
 
     private void Deselect(Block block)
@@ -119,25 +122,25 @@ public class BlockInteractions : Debuggable
 
         block.SetSelected(false);
 
-        _currentSelected = null;
+        _selectedBlock = null;
     }
 
     public void Destroy()
     {
-        if (_currentSelected == null)
+        if (_selectedBlock == null)
         {
             DebugLog("Couldn't destroy: no object selected");
             return;
         }
 
-        pool.Dispawn(_currentSelected);
-        DebugLog("Destroyed: " + _currentSelected.displayName);
-        _currentSelected = null;
+        pool.Dispawn(_selectedBlock);
+        DebugLog("Destroyed: " + _selectedBlock.displayName);
+        _selectedBlock = null;
     }
 
     public void Create()
     {
-        if (_currentSelected == null)
+        if (_selectedBlock == null)
         {
             DebugLog("Couldn't create: no object selected");
             return;
@@ -148,7 +151,7 @@ public class BlockInteractions : Debuggable
             return;
         }
 
-        Vector3 newPosition = _currentSelected.transform.position + _selectedFace;
+        Vector3 newPosition = _selectedBlock.transform.position + _selectedFace;
         newPosition.Round(1);
 
         if (Physics.CheckBox(newPosition, Vector3.one * 0.499f))
