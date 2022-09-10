@@ -28,11 +28,17 @@ public class Block : Debuggable
         }
     }
 
-    public void Place(Vector3 position)
+    public void Place(Vector3 position, bool invertRotation)
     {
         transform.position = position;
 
         Vector3 rotation = GetRotation();
+        if (invertRotation)
+        {
+            rotation.x += 180f;
+            rotation.y += 180f;
+        }
+
         transform.rotation = Quaternion.Euler(rotation);
         DebugLog($"{displayName} placed: \nPosition: {position.ToString("F1")}, Rotation: {rotation.ToString("F1")}");
     }

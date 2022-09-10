@@ -12,6 +12,9 @@ public class BlockInteractions : Debuggable
 
     private Block _selectedBlock = null;
     private Vector3 _selectedFace = Vector3.zero;
+    private int _selectedHalf = 0;
+
+    private const float _errorMargin = 0.0001f;
 
     private void Update()
     {
@@ -43,8 +46,8 @@ public class BlockInteractions : Debuggable
             Deselect(_selectedBlock);
             return;
         }
-        
-        if (transform.DistanceTo(hit.transform) > maxDistance)
+
+        if (transform.DistanceTo(hit.point) > maxDistance)
         {
             DebugLog("Couldn't select " + target.displayName + ": object is too far");
             _selectedFace = Vector3.zero;
@@ -52,7 +55,7 @@ public class BlockInteractions : Debuggable
             return;
         }
 
-        SetSelectedFace(hit);
+        SetSelectedFace(hit, target.transform);
 
         if (target == _selectedBlock)
         {
@@ -65,32 +68,33 @@ public class BlockInteractions : Debuggable
         DebugLog("Selected: " + target.displayName);
     }
 
-    private void SetSelectedFace(RaycastHit hit)
+    private void SetSelectedFace(RaycastHit hit, Transform target)
     {
         Bounds bounds = hit.transform.GetComponent<Collider>().bounds;
         Vector3 point = hit.point;
+        _selectedHalf = 0;
 
-        if (point.x == bounds.min.x)
+        if (point.x.IsBetween(bounds.min.x - _errorMargin, bounds.min.x + _errorMargin))
         {
             _selectedFace = Vector3.left;
         }
-        else if (point.x == bounds.max.x)
+        else if (point.x.IsBetween(bounds.max.x - _errorMargin, bounds.max.x + _errorMargin))
         {
             _selectedFace = Vector3.right;
         }
-        else if (point.y == bounds.min.y)
+        else if (point.y.IsBetween(bounds.min.y - _errorMargin, bounds.min.y + _errorMargin))
         {
             _selectedFace = Vector3.down;
         }
-        else if (point.y == bounds.max.y)
+        else if (point.y.IsBetween(bounds.max.y - _errorMargin, bounds.max.y + _errorMargin))
         {
             _selectedFace = Vector3.up;
         }
-        else if (point.z == bounds.min.z)
+        else if (point.z.IsBetween(bounds.min.z - _errorMargin, bounds.min.z + _errorMargin))
         {
             _selectedFace = Vector3.back;
         }
-        else if (point.z == bounds.max.z)
+        else if (point.z.IsBetween(bounds.max.z - _errorMargin, bounds.max.z + _errorMargin))
         {
             _selectedFace = Vector3.forward;
         }
@@ -98,6 +102,11 @@ public class BlockInteractions : Debuggable
         {
             DebugError("Couldn't select face");
             _selectedFace = Vector3.zero;
+        }
+
+        if (_selectedFace.x != 0f || _selectedFace.z != 0f)
+        {
+            _selectedHalf = point.y > target.position.y ? 1 : -1;
         }
     }
 
@@ -162,7 +171,7 @@ public class BlockInteractions : Debuggable
 
         Block newBlock = pool.Spawn(blockToCreate);
         newBlock.player = transform;
-        newBlock.Place(newPosition);
+        newBlock.Place(newPosition, _selectedHalf == 1);
         DebugLog("Created: " + newBlock.name);
     }
 }

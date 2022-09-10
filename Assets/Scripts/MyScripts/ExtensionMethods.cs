@@ -58,6 +58,10 @@ public static class ExtensionMethods
     {
         return Vector3.Distance(obj.position, other.position);
     }
+    public static float DistanceTo(this Transform obj, Vector3 other)
+    {
+        return Vector3.Distance(obj.position, other);
+    }
 
     // GameObject
     public static bool IsInLayerMask(this GameObject obj, LayerMask layerMask)
