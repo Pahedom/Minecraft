@@ -3122,7 +3122,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5043853299863087158, guid: 17c0906b2502a834bbed8a8e75d8b6f3, type: 3}
       propertyPath: m_Name
-      value: Stair
+      value: Stairs
       objectReference: {fileID: 0}
     - target: {fileID: 5043853300268322368, guid: 17c0906b2502a834bbed8a8e75d8b6f3, type: 3}
       propertyPath: m_Size.y
@@ -6315,6 +6315,10 @@ PrefabInstance:
     - target: {fileID: 8758554265506185412, guid: 17c0906b2502a834bbed8a8e75d8b6f3, type: 3}
       propertyPath: displayName
       value: Stair
+      objectReference: {fileID: 0}
+    - target: {fileID: 8758554265506185412, guid: 17c0906b2502a834bbed8a8e75d8b6f3, type: 3}
+      propertyPath: canInvertRotation
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8758554265506185412, guid: 17c0906b2502a834bbed8a8e75d8b6f3, type: 3}
       propertyPath: placementRotation

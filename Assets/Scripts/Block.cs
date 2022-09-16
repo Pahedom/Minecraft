@@ -9,6 +9,7 @@ public class Block : Debuggable
     public GameObject selectionMarker;
 
     public BlockPlacementRotation placementRotation;
+    public bool canInvertRotation = false;
 
     internal Transform player;
 
@@ -33,7 +34,7 @@ public class Block : Debuggable
         transform.position = position;
 
         Vector3 rotation = GetRotation();
-        if (invertRotation)
+        if (invertRotation && canInvertRotation)
         {
             rotation.x += 180f;
             rotation.y += 180f;

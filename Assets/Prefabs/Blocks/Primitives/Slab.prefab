@@ -1287,5 +1287,9 @@ PrefabInstance:
       propertyPath: displayName
       value: Slab
       objectReference: {fileID: 0}
+    - target: {fileID: 8758554265506185412, guid: 17c0906b2502a834bbed8a8e75d8b6f3, type: 3}
+      propertyPath: canInvertRotation
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 17c0906b2502a834bbed8a8e75d8b6f3, type: 3}
