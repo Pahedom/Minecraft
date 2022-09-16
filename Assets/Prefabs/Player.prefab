@@ -47,9 +47,9 @@ MonoBehaviour:
   _debugMode: 0
   _items:
   - {fileID: 3696390760743857380, guid: 6ad4e710f738f5145b9676748eb6c7d7, type: 3}
-  - {fileID: 8798648456265725136, guid: 5a0e81f58b8748d47ad21eaf165ac0b4, type: 3}
-  - {fileID: 291613041066177870, guid: 587cf98be658dd34697c98ec3569efbc, type: 3}
-  - {fileID: 0}
+  - {fileID: 970982873074614576, guid: e714af98c228d0647b11c0b4cc126667, type: 3}
+  - {fileID: 4230374344086377209, guid: f9238ff34b4265a4fa5d5416dab43afd, type: 3}
+  - {fileID: 8219309596388372096, guid: 60fca56201304394fbd58eade16439a4, type: 3}
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
@@ -1714,8 +1714,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _debugMode: 0
   playerCamera: {fileID: 9163090659136752846}
+  maxDistance: 5
   blockToCreate: {fileID: 3696390760743857380, guid: 6ad4e710f738f5145b9676748eb6c7d7, type: 3}
-  blocksParent: {fileID: 0}
+  pool: {fileID: 0}
 --- !u!114 &9163090659495262887
 MonoBehaviour:
   m_ObjectHideFlags: 0
